@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CharacterInfo } from './entities/person_data_inquiry.entity';  // 가정: PersonDataInquiry는 TypeORM 엔터티입니다.
 import { CreatePersonDataInquiryDto } from './dto/create-person_data_inquiry.dto';
 import { UpdatePersonDataInquiryDto } from './dto/update-person_data_inquiry.dto';
 
 @Injectable()
 export class PersonDataInquiryService {
+  constructor(
+    @InjectRepository(CharacterInfo)
+    private readonly personDataInquiryRepository: Repository<CharacterInfo>,
+  ) {}
+
   create(createPersonDataInquiryDto: CreatePersonDataInquiryDto) {
-    return 'This action adds a new personDataInquiry';
+    // ... (생성 로직 추가)
   }
 
-  findAll() {
-    return `This action returns all personDataInquiry`;
+  async findAll(): Promise<CharacterInfo[]> {
+    return await this.personDataInquiryRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} personDataInquiry`;
+  async findOne(id: number): Promise<CharacterInfo> {
+    return await this.personDataInquiryRepository.findOne({ where: { character_id: id } });
   }
 
   update(id: number, updatePersonDataInquiryDto: UpdatePersonDataInquiryDto) {
-    return `This action updates a #${id} personDataInquiry`;
+    // ... (업데이트 로직 추가)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} personDataInquiry`;
+  async remove(id: number): Promise<void> {
+    await this.personDataInquiryRepository.delete(id);
   }
 }
