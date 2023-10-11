@@ -18,6 +18,11 @@ export class PersonDataInquiryController {
     return data;
   }
 
+  @Get(':mbti')
+  findOone(@Param('mbti') mbti:string) {
+    return this.personDataInquiryService.p_findAll(mbti);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.personDataInquiryService.findOne(+id);

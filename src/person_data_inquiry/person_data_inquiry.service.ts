@@ -23,6 +23,13 @@ export class PersonDataInquiryService {
   async findOne(id: number): Promise<CharacterInfo> {
     return await this.personDataInquiryRepository.findOne({ where: { character_id: id } });
   }
+  async findOone(mbti:string): Promise<CharacterInfo> {
+    return await this.personDataInquiryRepository.findOne({where: { mbti:mbti}});
+  }
+
+  async p_findAll(mbti:string): Promise<CharacterInfo[]> {
+    return await this.personDataInquiryRepository.find({where: { mbti:mbti}});
+  }
 
   update(id: number, updatePersonDataInquiryDto: UpdatePersonDataInquiryDto) {
     // ... (업데이트 로직 추가)
